@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Dragon Boating</string>
-    <string name="edit_message">Enter a message</string>
-    <string name="button_send">Send</string>
+    <string name="main_title">Enter the times</string>
+    <string name="time_1">Main Time (s)</string>
+    <string name="rate_1">Main BPM</string>
+    <string name="time_2">Secondary Time (s)</string>
+    <string name="rate_2">Secondary BPM</string>
+    <string name="time_3">Rest Time (s)</string>
+    <string name="rate_3">Rest BPM</string>
+    <string name="button_start">START</string>
+    <string name="text_set">Sets: </string>
 </resources>
