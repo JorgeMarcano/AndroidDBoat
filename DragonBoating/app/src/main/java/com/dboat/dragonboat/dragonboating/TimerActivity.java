@@ -23,10 +23,15 @@ import android.widget.TextView;
 
 public class TimerActivity extends Activity {
 
+    public static final String EXTRA_SETCOUNT = "com.dboat.dragonboat.dragonboating.SETCOUNT";
+    public static final String EXTRA_TIMES = "com.dboat.dragonboat.dragonboating.TIMES";
+    public static final String EXTRA_BPMS = "com.dboat.dragonboat.dragonboating.BPMS";
+
     private TextView tvBPM;
     private TextView tvTimer;
     private TextView tvStrokeCount;
     private TextView tvSetCount;
+    private TextView tvMillis;
 
     private ConstraintLayout root;
 
@@ -48,6 +53,7 @@ public class TimerActivity extends Activity {
     boolean isPaused = false;
 
     private int setCount;
+    private int totalSet;
 
     private long strokeCount = 0;
 
@@ -56,6 +62,7 @@ public class TimerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_timer);
 
         // Set window fullscreen and remove title bar, and force landscape orientation
@@ -74,10 +81,12 @@ public class TimerActivity extends Activity {
         pbTimer = findViewById(R.id.pbTimer);
         tvStrokeCount = findViewById(R.id.tvStrokeCount);
         tvSetCount = findViewById(R.id.tvSetCount);
+        tvMillis = findViewById(R.id.tvMillis);
 
         root = findViewById(R.id.root);
 
         setCount = Integer.parseInt(intent.getStringExtra(MainActivity.EXTRA_SET)) - 1;
+        totalSet = setCount + 1;
         tvSetCount.setText("" + setCount);
 
         tvStrokeCount.setText("" + strokeCount + " strokes");
@@ -107,8 +116,9 @@ public class TimerActivity extends Activity {
         cdt = new CountDownTimer(5000, 1) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String str = String.format("%d.%03d", (millisUntilFinished / 1000) % 60, millisUntilFinished % 1000);
-                tvTimer.setText(str);
+                //String str = String.format("%d.%03d", (millisUntilFinished / 1000) % 60, millisUntilFinished % 1000);
+                tvTimer.setText("" +  (millisUntilFinished / 1000) % 60);
+                tvMillis.setText(String.format("%03d", millisUntilFinished % 1000));
             }
 
             @Override
@@ -125,6 +135,7 @@ public class TimerActivity extends Activity {
 
         long beatPer = bpms[count] != 0 ? 60000 / bpms[count] : Long.MAX_VALUE;
         final float rate = ((float) beatDuration) / beatPer;
+        final Activity activity = this;
 
         //if (loaded)
         //   sp.play(beatId, 0.5f, 0.5f, 1, (int) (bpms[count] * times[count] / 60000), rate < 1.0f ? rate : 1);
@@ -136,11 +147,12 @@ public class TimerActivity extends Activity {
             @Override
             public void onTick(long millisUntilFinished) {
                 //update timer display
-                String str = String.format("%d.%03d", (millisUntilFinished / 1000) % 60, millisUntilFinished % 1000);
+                //String str = String.format("%d.%03d", (millisUntilFinished / 1000) % 60, millisUntilFinished % 1000);
                 if (millisUntilFinished >= 60000)
-                    tvTimer.setText(String.format("%d:%s", millisUntilFinished / 60000, str));
+                    tvTimer.setText(String.format("%d:%02d", millisUntilFinished / 60000, (millisUntilFinished / 1000) % 60));
                 else
-                    tvTimer.setText(str);
+                    tvTimer.setText("" + (millisUntilFinished / 1000) % 60);
+                tvMillis.setText(String.format("%03d", millisUntilFinished % 1000));
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                     pbTimer.setProgress((int) (millisUntilFinished * 100 / maxTime), true);
@@ -186,6 +198,14 @@ public class TimerActivity extends Activity {
                 }
 
                 if (setCount < 0) {
+                    Intent intent = new Intent(activity, ResultsActivity.class);
+
+                    intent.putExtra(EXTRA_BPMS, bpms);
+                    intent.putExtra(EXTRA_TIMES, times);
+                    intent.putExtra(EXTRA_SETCOUNT, totalSet);
+
+                    startActivity(intent);
+
                     return;
                 }
 

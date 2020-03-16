@@ -39,6 +39,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -53,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sbBPM2" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -67,6 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sbTime1" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -81,6 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sbBPM1" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -95,6 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sbTime2" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -109,6 +114,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sbTime3" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -281,6 +287,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -327,6 +334,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <TextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
