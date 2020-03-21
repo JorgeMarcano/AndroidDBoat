@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Dragon Boating</string>
+    <string name="sound_setting">Ticks: </string>
     <string name="main_title">Enter the times</string>
     <string name="time_1">Main Time (s)</string>
     <string name="rate_1">Main BPM</string>

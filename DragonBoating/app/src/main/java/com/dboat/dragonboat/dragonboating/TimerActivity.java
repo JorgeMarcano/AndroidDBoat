@@ -55,6 +55,8 @@ public class TimerActivity extends Activity {
     private int setCount;
     private int totalSet;
 
+    private boolean isSound;
+
     private long strokeCount = 0;
 
     private final int[] colors = {Color.GREEN, Color.YELLOW, 0xFF00CCFF};
@@ -75,6 +77,8 @@ public class TimerActivity extends Activity {
         for (int i = 0; i < 3; i++) {
             bpms[i] = Integer.parseInt(intent.getStringExtra(MainActivity.EXTRA_BPM + i));
         }
+
+        isSound = intent.getBooleanExtra(MainActivity.EXTRA_SOUND, false);
 
         tvBPM = findViewById(R.id.tvBPM);
         tvTimer = findViewById(R.id.tvTimer);
@@ -166,7 +170,7 @@ public class TimerActivity extends Activity {
                     strokeCount++;
                     tvStrokeCount.setText("" + strokeCount + " strokes");
 
-                    if (loaded)
+                    if (loaded && isSound)
                         sp.play(beatId, 0.5f, 0.5f, 1, 0, /*rate < 1.0f ? rate :*/ 1);
 
                     //flash the screen and beep
@@ -215,7 +219,16 @@ public class TimerActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        cdt.cancel();
+        sp.stop(beatId);
+        sp.release();
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
+        cdt.cancel();
         sp.stop(beatId);
         sp.release();
         super.onDestroy();

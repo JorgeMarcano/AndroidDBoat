@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,11 +20,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_BPM = "com.dboat.dragonboat.dragonboating.BPM";
     public static final String EXTRA_SET = "com.dboat.dragonboat.dragonboating.SET";
 
+    public static final String EXTRA_SOUND = "com.dboat.dragonboat.dragonboating.SOUND";
+
     private static final int MAX_BPM = 100;
     private static final int MAX_TIME = 120;
 
     boolean isText = false;
     boolean isSeek = false;
+
+    private Switch sSound;
 
     private SeekBar[] sbArr = new SeekBar[6];
 
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         etArr[3] = (EditText) findViewById(R.id.bpm1);
         etArr[4] = (EditText) findViewById(R.id.bpm2);
         etArr[5] = (EditText) findViewById(R.id.bpm3);
+
+        sSound = findViewById(R.id.sSound);
 
         for (int i  =0; i < 6; i++) {
             final int indx = i;
@@ -118,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
         message = ((EditText) findViewById(R.id.etSet)).getText().toString();
         intent.putExtra(EXTRA_SET, message);
+
+        intent.putExtra(EXTRA_SOUND, sSound.isChecked());
 
         startActivity(intent);
     }
